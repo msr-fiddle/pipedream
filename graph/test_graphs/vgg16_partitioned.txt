@@ -1,0 +1,82 @@
+node11 -- MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False) -- forward_compute_time=0.117, backward_compute_time=2.856, activation_size=205520896.000, parameter_size=0.000 -- stage_id=0
+node10 -- ReLU(inplace) -- forward_compute_time=0.107, backward_compute_time=2.660, activation_size=822083584.000, parameter_size=0.000 -- stage_id=0
+node13 -- ReLU(inplace) -- forward_compute_time=0.145, backward_compute_time=1.432, activation_size=411041792.000, parameter_size=0.000 -- stage_id=0
+node12 -- Conv2d(128, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)) -- forward_compute_time=2.334, backward_compute_time=18.337, activation_size=411041792.000, parameter_size=1180672.000 -- stage_id=0
+node15 -- ReLU(inplace) -- forward_compute_time=0.106, backward_compute_time=1.486, activation_size=411041792.000, parameter_size=0.000 -- stage_id=0
+node14 -- Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)) -- forward_compute_time=3.685, backward_compute_time=27.018, activation_size=411041792.000, parameter_size=2360320.000 -- stage_id=0
+node17 -- ReLU(inplace) -- forward_compute_time=0.153, backward_compute_time=1.334, activation_size=411041792.000, parameter_size=0.000 -- stage_id=0
+node16 -- Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)) -- forward_compute_time=0.200, backward_compute_time=33.899, activation_size=411041792.000, parameter_size=2360320.000 -- stage_id=0
+node19 -- Conv2d(256, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)) -- forward_compute_time=3.257, backward_compute_time=15.578, activation_size=205520896.000, parameter_size=4720640.000 -- stage_id=0
+node18 -- MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False) -- forward_compute_time=0.178, backward_compute_time=1.462, activation_size=102760448.000, parameter_size=0.000 -- stage_id=0
+node31 -- ReLU(inplace) -- forward_compute_time=0.111, backward_compute_time=0.183, activation_size=51380224.000, parameter_size=0.000 -- stage_id=1
+node30 -- Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)) -- forward_compute_time=0.165, backward_compute_time=9.214, activation_size=51380224.000, parameter_size=9439232.000 -- stage_id=0
+node37 -- Dropout(p=0.5) -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=2097152.000, parameter_size=0.000 -- stage_id=1
+node36 -- ReLU(inplace) -- forward_compute_time=0.114, backward_compute_time=0.038, activation_size=2097152.000, parameter_size=0.000 -- stage_id=1
+node35 -- Linear(in_features=25088, out_features=4096, bias=True) -- forward_compute_time=0.205, backward_compute_time=4.621, activation_size=2097152.000, parameter_size=411058176.000 -- stage_id=1
+node34 -- View(-1) -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=12845056.000, parameter_size=0.000 -- stage_id=1
+node38 -- Linear(in_features=4096, out_features=4096, bias=True) -- forward_compute_time=0.166, backward_compute_time=0.767, activation_size=2097152.000, parameter_size=67125248.000 -- stage_id=1
+node33 -- Size(0) -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=4.000, parameter_size=0.000 -- stage_id=1
+node32 -- MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False) -- forward_compute_time=0.137, backward_compute_time=0.315, activation_size=12845056.000, parameter_size=0.000 -- stage_id=1
+node39 -- ReLU(inplace) -- forward_compute_time=0.131, backward_compute_time=0.058, activation_size=2097152.000, parameter_size=0.000 -- stage_id=1
+node28 -- Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)) -- forward_compute_time=0.158, backward_compute_time=7.437, activation_size=51380224.000, parameter_size=9439232.000 -- stage_id=0
+node29 -- ReLU(inplace) -- forward_compute_time=0.104, backward_compute_time=0.784, activation_size=51380224.000, parameter_size=0.000 -- stage_id=0
+node24 -- ReLU(inplace) -- forward_compute_time=0.109, backward_compute_time=0.661, activation_size=205520896.000, parameter_size=0.000 -- stage_id=0
+node25 -- MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False) -- forward_compute_time=0.116, backward_compute_time=0.811, activation_size=51380224.000, parameter_size=0.000 -- stage_id=0
+node26 -- Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)) -- forward_compute_time=2.840, backward_compute_time=7.411, activation_size=51380224.000, parameter_size=9439232.000 -- stage_id=0
+node27 -- ReLU(inplace) -- forward_compute_time=0.105, backward_compute_time=0.344, activation_size=51380224.000, parameter_size=0.000 -- stage_id=0
+node20 -- ReLU(inplace) -- forward_compute_time=0.151, backward_compute_time=0.711, activation_size=205520896.000, parameter_size=0.000 -- stage_id=0
+node21 -- Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)) -- forward_compute_time=3.270, backward_compute_time=21.861, activation_size=205520896.000, parameter_size=9439232.000 -- stage_id=0
+node22 -- ReLU(inplace) -- forward_compute_time=0.107, backward_compute_time=0.706, activation_size=205520896.000, parameter_size=0.000 -- stage_id=0
+node23 -- Conv2d(512, 512, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)) -- forward_compute_time=0.153, backward_compute_time=29.433, activation_size=205520896.000, parameter_size=9439232.000 -- stage_id=0
+node40 -- Dropout(p=0.5) -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=2097152.000, parameter_size=0.000 -- stage_id=2
+node41 -- Linear(in_features=4096, out_features=1000, bias=True) -- forward_compute_time=0.157, backward_compute_time=183.352, activation_size=512000.000, parameter_size=16388000.000 -- stage_id=2
+node9 -- Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)) -- forward_compute_time=3.592, backward_compute_time=53.858, activation_size=822083584.000, parameter_size=590336.000 -- stage_id=0
+node8 -- ReLU(inplace) -- forward_compute_time=0.122, backward_compute_time=2.720, activation_size=822083584.000, parameter_size=0.000 -- stage_id=0
+node1 -- Input -- forward_compute_time=17.787, backward_compute_time=0.000, activation_size=77070336.000, parameter_size=0.000 -- stage_id=0
+node3 -- ReLU(inplace) -- forward_compute_time=0.148, backward_compute_time=5.569, activation_size=1644167168.000, parameter_size=0.000 -- stage_id=0
+node2 -- Conv2d(3, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)) -- forward_compute_time=1.278, backward_compute_time=24.655, activation_size=1644167168.000, parameter_size=7168.000 -- stage_id=0
+node5 -- ReLU(inplace) -- forward_compute_time=0.107, backward_compute_time=5.406, activation_size=1644167168.000, parameter_size=0.000 -- stage_id=0
+node4 -- Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)) -- forward_compute_time=9.441, backward_compute_time=113.864, activation_size=1644167168.000, parameter_size=147712.000 -- stage_id=0
+node7 -- Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)) -- forward_compute_time=3.863, backward_compute_time=39.724, activation_size=822083584.000, parameter_size=295424.000 -- stage_id=0
+node6 -- MaxPool2d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False) -- forward_compute_time=0.176, backward_compute_time=5.588, activation_size=411041792.000, parameter_size=0.000 -- stage_id=0
+	node11 -- node12
+	node10 -- node11
+	node13 -- node14
+	node12 -- node13
+	node15 -- node16
+	node14 -- node15
+	node17 -- node18
+	node16 -- node17
+	node19 -- node20
+	node18 -- node19
+	node31 -- node32
+	node30 -- node31
+	node37 -- node38
+	node36 -- node37
+	node35 -- node36
+	node34 -- node35
+	node38 -- node39
+	node33 -- node34
+	node32 -- node33
+	node32 -- node34
+	node39 -- node40
+	node28 -- node29
+	node29 -- node30
+	node24 -- node25
+	node25 -- node26
+	node26 -- node27
+	node27 -- node28
+	node20 -- node21
+	node21 -- node22
+	node22 -- node23
+	node23 -- node24
+	node40 -- node41
+	node9 -- node10
+	node8 -- node9
+	node1 -- node2
+	node3 -- node4
+	node2 -- node3
+	node5 -- node6
+	node4 -- node5
+	node7 -- node8
+	node6 -- node7

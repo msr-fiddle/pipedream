@@ -1,0 +1,11 @@
+0 -- test0 -- forward_compute_time=0.0, backward_compute_time=0.0, activation_size=0.0, parameter_size=0.0
+1 -- test1 -- forward_compute_time=0.0, backward_compute_time=0.0, activation_size=0.0, parameter_size=0.0
+2 -- test2 -- forward_compute_time=0.0, backward_compute_time=0.0, activation_size=0.0, parameter_size=0.0
+3 -- test3 -- forward_compute_time=0.0, backward_compute_time=0.0, activation_size=0.0, parameter_size=0.0
+4 -- test4 -- forward_compute_time=0.0, backward_compute_time=0.0, activation_size=0.0, parameter_size=0.0
+	0 -- 1
+	0 -- 2
+	0 -- 4
+	1 -- 3
+	2 -- 3
+	4 -- 3

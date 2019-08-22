@@ -1,0 +1,8 @@
+# MLPerf benchmark suite requirements
+# From: https://github.com/mlperf/results/blob/master/v0.5.0/nvidia/submission/code/rnn_translator/pytorch/requirements.txt
+sacrebleu==1.2.10
+mlperf-compliance==0.0.10
+# For graphs
+graphviz
+matplotlib
+seaborn

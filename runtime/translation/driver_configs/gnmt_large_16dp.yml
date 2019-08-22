@@ -1,0 +1,17 @@
+'log_directory': '/datadrive3/aaron/output/v2_output'
+'module': 'models.gnmt_large.gpus=16'
+'data_dir': '/mnt/deepak/data/wmt_ende/'
+'config_file': 'models/gnmt_large/gpus=16/dp_conf.json'
+'container': 'fiddlev3.azurecr.io/pipedream:1905'
+'machines': ['v401:0', 'v401:1', 'v401:2', 'v401:3', 'v402:4', 'v402:5', 'v402:6', 'v402:7', 'v404:8', 'v404:9', 'v404:10', 'v404:11', 'v407:12', 'v407:13', 'v407:14', 'v407:15']
+'batch_size': 64
+'learning_rate': 0.0003
+'weight_decay': 0.000
+'epochs': 10
+'print_frequency': 100
+'verbose_frequency': 100
+'compress_activations': False
+'compress_in_gpu': False
+'learning_rate_policy': 'polynomial'
+'model_type': 'translation'
+'distributed_backend': 'nccl'

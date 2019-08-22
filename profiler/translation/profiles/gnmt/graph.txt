@@ -1,0 +1,106 @@
+node1 -- Input0 -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=0.0, parameter_size=0.000
+node4 -- Embedding(32320, 1024, padding_idx=0) -- forward_compute_time=0.073, backward_compute_time=6.949, activation_size=6291456.0, parameter_size=132382720.000
+node5 -- EmuBidirLSTM(  (bidir): LSTM(1024, 1024, bidirectional=True)  (layer1): LSTM(1024, 1024)  (layer2): LSTM(1024, 1024)) -- forward_compute_time=5.247, backward_compute_time=0.016, activation_size=12582912.0, parameter_size=67174400.000
+node2 -- Input1 -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=0.0, parameter_size=0.000
+node6 -- Dropout(p=0.2) -- forward_compute_time=0.077, backward_compute_time=0.196, activation_size=12582912.0, parameter_size=0.000
+node7 -- LSTM(2048, 1024) -- forward_compute_time=3.190, backward_compute_time=5.348, activation_size=[6291456.0; 131072.0; 131072.0], parameter_size=50364416.000
+node8 -- __getitem__(0) -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=6291456.0, parameter_size=0.000
+node9 -- __getitem__(1) -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=131072.0, parameter_size=0.000
+node10 -- Dropout(p=0.2) -- forward_compute_time=0.064, backward_compute_time=0.128, activation_size=6291456.0, parameter_size=0.000
+node11 -- LSTM(1024, 1024) -- forward_compute_time=2.491, backward_compute_time=4.203, activation_size=[6291456.0; 131072.0; 131072.0], parameter_size=33587200.000
+node12 -- __getitem__(0) -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=6291456.0, parameter_size=0.000
+node13 -- __getitem__(1) -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=131072.0, parameter_size=0.000
+node14 -- Add -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=6291456.0, parameter_size=0.000
+node15 -- Dropout(p=0.2) -- forward_compute_time=0.059, backward_compute_time=0.121, activation_size=6291456.0, parameter_size=0.000
+node16 -- LSTM(1024, 1024) -- forward_compute_time=2.492, backward_compute_time=4.201, activation_size=[6291456.0; 131072.0; 131072.0], parameter_size=33587200.000
+node17 -- __getitem__(0) -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=6291456.0, parameter_size=0.000
+node18 -- __getitem__(1) -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=131072.0, parameter_size=0.000
+node19 -- Add -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=6291456.0, parameter_size=0.000
+node3 -- Input2 -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=0.0, parameter_size=0.000
+node21 -- Embedding(32320, 1024, padding_idx=0) -- forward_compute_time=0.066, backward_compute_time=0.328, activation_size=6291456.0, parameter_size=132382720.000
+node20 -- hidden -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=0.0, parameter_size=0.000
+node22 -- __getitem__(0) -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=0.0, parameter_size=0.000
+node23 -- RecurrentAttention(  (rnn): LSTM(1024, 1024)  (attn): BahdanauAttention(    (linear_q): Linear(in_features=1024, out_features=1024, bias=False)    (linear_k): Linear(in_features=1024, out_features=1024, bias=False)    (dropout): Dropout(p=0)  )  (dropout): Dropout(p=0)) -- forward_compute_time=4.546, backward_compute_time=6.141, activation_size=[6160384.0; 131072.0; 131072.0; 6160384.0; 288768.0], parameter_size=41979904.000
+node24 -- __getitem__(0) -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=6160384.0, parameter_size=0.000
+node25 -- __getitem__(1) -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=131072.0, parameter_size=0.000
+node26 -- __getitem__(2) -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=131072.0, parameter_size=0.000
+node27 -- __getitem__(3) -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=6160384.0, parameter_size=0.000
+node28 -- Dropout(p=0.2) -- forward_compute_time=0.058, backward_compute_time=0.176, activation_size=6160384.0, parameter_size=0.000
+node29 -- Concat(2) -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=6160384.0, parameter_size=0.000
+node30 -- __getitem__(1) -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=0.0, parameter_size=0.000
+node31 -- LSTM(2048, 1024) -- forward_compute_time=3.151, backward_compute_time=5.288, activation_size=[6160384.0; 131072.0; 131072.0], parameter_size=50364416.000
+node32 -- __getitem__(0) -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=6160384.0, parameter_size=0.000
+node33 -- __getitem__(1) -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=131072.0, parameter_size=0.000
+node34 -- Dropout(p=0.2) -- forward_compute_time=0.061, backward_compute_time=0.174, activation_size=6160384.0, parameter_size=0.000
+node35 -- Concat(2) -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=6160384.0, parameter_size=0.000
+node36 -- __getitem__(2) -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=0.0, parameter_size=0.000
+node37 -- LSTM(2048, 1024) -- forward_compute_time=3.145, backward_compute_time=5.306, activation_size=[6160384.0; 131072.0; 131072.0], parameter_size=50364416.000
+node38 -- __getitem__(0) -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=6160384.0, parameter_size=0.000
+node39 -- __getitem__(1) -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=131072.0, parameter_size=0.000
+node40 -- Add -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=6160384.0, parameter_size=0.000
+node41 -- Dropout(p=0.2) -- forward_compute_time=0.055, backward_compute_time=0.198, activation_size=6160384.0, parameter_size=0.000
+node42 -- Concat(2) -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=6160384.0, parameter_size=0.000
+node43 -- __getitem__(3) -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=0.0, parameter_size=0.000
+node44 -- LSTM(2048, 1024) -- forward_compute_time=3.149, backward_compute_time=15.883, activation_size=[6160384.0; 131072.0; 131072.0], parameter_size=50364416.000
+node45 -- __getitem__(0) -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=6160384.0, parameter_size=0.000
+node46 -- __getitem__(1) -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=131072.0, parameter_size=0.000
+node47 -- Add -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=6160384.0, parameter_size=0.000
+node48 -- Classifier(  (classifier): Linear(in_features=1024, out_features=32320, bias=True)) -- forward_compute_time=5.609, backward_compute_time=1.227, activation_size=194437120.0, parameter_size=132512000.000
+	node1 -- node4
+	node4 -- node5
+	node2 -- node5
+	node5 -- node6
+	node6 -- node7
+	node7 -- node8
+	node7 -- node9
+	node8 -- node10
+	node10 -- node11
+	node11 -- node12
+	node11 -- node13
+	node12 -- node14
+	node8 -- node14
+	node14 -- node15
+	node15 -- node16
+	node16 -- node17
+	node16 -- node18
+	node17 -- node19
+	node14 -- node19
+	node3 -- node21
+	node20 -- node22
+	node21 -- node23
+	node22 -- node23
+	node19 -- node23
+	node2 -- node23
+	node23 -- node24
+	node23 -- node25
+	node23 -- node26
+	node23 -- node27
+	node24 -- node28
+	node28 -- node29
+	node26 -- node29
+	node20 -- node30
+	node29 -- node31
+	node30 -- node31
+	node31 -- node32
+	node31 -- node33
+	node32 -- node34
+	node34 -- node35
+	node26 -- node35
+	node20 -- node36
+	node35 -- node37
+	node36 -- node37
+	node37 -- node38
+	node37 -- node39
+	node38 -- node40
+	node32 -- node40
+	node40 -- node41
+	node41 -- node42
+	node26 -- node42
+	node20 -- node43
+	node42 -- node44
+	node43 -- node44
+	node44 -- node45
+	node44 -- node46
+	node45 -- node47
+	node40 -- node47
+	node47 -- node48

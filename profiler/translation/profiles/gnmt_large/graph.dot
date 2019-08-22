@@ -1,0 +1,330 @@
+digraph {
+	node1 [label="Input0
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=0.0,parameter_size=0.0]"]
+	node4 [label="Embedding(32320, 1024, padding_idx=0)
+[forward_compute_time=0.140,backward_compute_time=25.538,activation_size=13107200.0,parameter_size=132382720.0]"]
+	node5 [label="EmuBidirLSTM(
+  (bidir): LSTM(1024, 1024, bidirectional=True)
+  (layer1): LSTM(1024, 1024)
+  (layer2): LSTM(1024, 1024)
+)
+[forward_compute_time=14.126,backward_compute_time=0.019,activation_size=26214400.0,parameter_size=67174400.0]"]
+	node2 [label="Input1
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=0.0,parameter_size=0.0]"]
+	node6 [label="Dropout(p=0.2)
+[forward_compute_time=0.186,backward_compute_time=0.285,activation_size=26214400.0,parameter_size=0.0]"]
+	node7 [label="LSTM(2048, 1024)
+[forward_compute_time=10.298,backward_compute_time=18.777,activation_size=[13107200.0, 524288.0, 524288.0],parameter_size=50364416.0]"]
+	node8 [label="__getitem__(0)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node9 [label="__getitem__(1)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=524288.0,parameter_size=0.0]"]
+	node10 [label="Dropout(p=0.2)
+[forward_compute_time=0.124,backward_compute_time=0.159,activation_size=13107200.0,parameter_size=0.0]"]
+	node11 [label="LSTM(1024, 1024)
+[forward_compute_time=6.887,backward_compute_time=13.549,activation_size=[13107200.0, 524288.0, 524288.0],parameter_size=33587200.0]"]
+	node12 [label="__getitem__(0)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node13 [label="__getitem__(1)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=524288.0,parameter_size=0.0]"]
+	node14 [label="Add
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node15 [label="Dropout(p=0.2)
+[forward_compute_time=0.129,backward_compute_time=0.167,activation_size=13107200.0,parameter_size=0.0]"]
+	node16 [label="LSTM(1024, 1024)
+[forward_compute_time=6.903,backward_compute_time=13.518,activation_size=[13107200.0, 524288.0, 524288.0],parameter_size=33587200.0]"]
+	node17 [label="__getitem__(0)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node18 [label="__getitem__(1)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=524288.0,parameter_size=0.0]"]
+	node19 [label="Add
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node20 [label="Dropout(p=0.2)
+[forward_compute_time=0.122,backward_compute_time=0.160,activation_size=13107200.0,parameter_size=0.0]"]
+	node21 [label="LSTM(1024, 1024)
+[forward_compute_time=6.889,backward_compute_time=13.594,activation_size=[13107200.0, 524288.0, 524288.0],parameter_size=33587200.0]"]
+	node22 [label="__getitem__(0)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node23 [label="__getitem__(1)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=524288.0,parameter_size=0.0]"]
+	node24 [label="Add
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node25 [label="Dropout(p=0.2)
+[forward_compute_time=0.120,backward_compute_time=0.160,activation_size=13107200.0,parameter_size=0.0]"]
+	node26 [label="LSTM(1024, 1024)
+[forward_compute_time=7.019,backward_compute_time=13.628,activation_size=[13107200.0, 524288.0, 524288.0],parameter_size=33587200.0]"]
+	node27 [label="__getitem__(0)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node28 [label="__getitem__(1)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=524288.0,parameter_size=0.0]"]
+	node29 [label="Add
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node30 [label="Dropout(p=0.2)
+[forward_compute_time=0.120,backward_compute_time=0.164,activation_size=13107200.0,parameter_size=0.0]"]
+	node31 [label="LSTM(1024, 1024)
+[forward_compute_time=6.991,backward_compute_time=13.614,activation_size=[13107200.0, 524288.0, 524288.0],parameter_size=33587200.0]"]
+	node32 [label="__getitem__(0)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node33 [label="__getitem__(1)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=524288.0,parameter_size=0.0]"]
+	node34 [label="Add
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node35 [label="Dropout(p=0.2)
+[forward_compute_time=0.120,backward_compute_time=0.169,activation_size=13107200.0,parameter_size=0.0]"]
+	node36 [label="LSTM(1024, 1024)
+[forward_compute_time=7.055,backward_compute_time=14.112,activation_size=[13107200.0, 524288.0, 524288.0],parameter_size=33587200.0]"]
+	node37 [label="__getitem__(0)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node38 [label="__getitem__(1)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=524288.0,parameter_size=0.0]"]
+	node39 [label="Add
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node3 [label="Input2
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=0.0,parameter_size=0.0]"]
+	node41 [label="Embedding(32320, 1024, padding_idx=0)
+[forward_compute_time=0.128,backward_compute_time=0.460,activation_size=13107200.0,parameter_size=132382720.0]"]
+	node40 [label="hidden
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=0.0,parameter_size=0.0]"]
+	node42 [label="__getitem__(0)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=0.0,parameter_size=0.0]"]
+	node43 [label="RecurrentAttention(
+  (rnn): LSTM(1024, 1024)
+  (attn): BahdanauAttention(
+    (linear_q): Linear(in_features=1024, out_features=1024, bias=False)
+    (linear_k): Linear(in_features=1024, out_features=1024, bias=False)
+    (dropout): Dropout(p=0)
+  )
+  (dropout): Dropout(p=0)
+)
+[forward_compute_time=15.210,backward_compute_time=23.086,activation_size=[13107200.0, 524288.0, 524288.0, 13107200.0, 320000.0],parameter_size=41979904.0]"]
+	node44 [label="__getitem__(0)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node45 [label="__getitem__(1)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=524288.0,parameter_size=0.0]"]
+	node46 [label="__getitem__(2)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=524288.0,parameter_size=0.0]"]
+	node47 [label="__getitem__(3)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node48 [label="Dropout(p=0.2)
+[forward_compute_time=0.104,backward_compute_time=0.262,activation_size=13107200.0,parameter_size=0.0]"]
+	node49 [label="Concat(2)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node50 [label="__getitem__(1)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=0.0,parameter_size=0.0]"]
+	node51 [label="LSTM(2048, 1024)
+[forward_compute_time=10.517,backward_compute_time=18.744,activation_size=[13107200.0, 524288.0, 524288.0],parameter_size=50364416.0]"]
+	node52 [label="__getitem__(0)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node53 [label="__getitem__(1)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=524288.0,parameter_size=0.0]"]
+	node54 [label="Dropout(p=0.2)
+[forward_compute_time=0.109,backward_compute_time=0.277,activation_size=13107200.0,parameter_size=0.0]"]
+	node55 [label="Concat(2)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node56 [label="__getitem__(2)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=0.0,parameter_size=0.0]"]
+	node57 [label="LSTM(2048, 1024)
+[forward_compute_time=10.553,backward_compute_time=18.771,activation_size=[13107200.0, 524288.0, 524288.0],parameter_size=50364416.0]"]
+	node58 [label="__getitem__(0)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node59 [label="__getitem__(1)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=524288.0,parameter_size=0.0]"]
+	node60 [label="Add
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node61 [label="Dropout(p=0.2)
+[forward_compute_time=0.120,backward_compute_time=0.256,activation_size=13107200.0,parameter_size=0.0]"]
+	node62 [label="Concat(2)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node63 [label="__getitem__(3)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=0.0,parameter_size=0.0]"]
+	node64 [label="LSTM(2048, 1024)
+[forward_compute_time=10.725,backward_compute_time=18.802,activation_size=[13107200.0, 524288.0, 524288.0],parameter_size=50364416.0]"]
+	node65 [label="__getitem__(0)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node66 [label="__getitem__(1)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=524288.0,parameter_size=0.0]"]
+	node67 [label="Add
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node68 [label="Dropout(p=0.2)
+[forward_compute_time=0.121,backward_compute_time=0.263,activation_size=13107200.0,parameter_size=0.0]"]
+	node69 [label="Concat(2)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node70 [label="__getitem__(4)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=0.0,parameter_size=0.0]"]
+	node71 [label="LSTM(2048, 1024)
+[forward_compute_time=10.643,backward_compute_time=18.863,activation_size=[13107200.0, 524288.0, 524288.0],parameter_size=50364416.0]"]
+	node72 [label="__getitem__(0)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node73 [label="__getitem__(1)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=524288.0,parameter_size=0.0]"]
+	node74 [label="Add
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node75 [label="Dropout(p=0.2)
+[forward_compute_time=0.131,backward_compute_time=0.263,activation_size=13107200.0,parameter_size=0.0]"]
+	node76 [label="Concat(2)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node77 [label="__getitem__(5)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=0.0,parameter_size=0.0]"]
+	node78 [label="LSTM(2048, 1024)
+[forward_compute_time=10.651,backward_compute_time=19.036,activation_size=[13107200.0, 524288.0, 524288.0],parameter_size=50364416.0]"]
+	node79 [label="__getitem__(0)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node80 [label="__getitem__(1)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=524288.0,parameter_size=0.0]"]
+	node81 [label="Add
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node82 [label="Dropout(p=0.2)
+[forward_compute_time=0.126,backward_compute_time=0.261,activation_size=13107200.0,parameter_size=0.0]"]
+	node83 [label="Concat(2)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node84 [label="__getitem__(6)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=0.0,parameter_size=0.0]"]
+	node85 [label="LSTM(2048, 1024)
+[forward_compute_time=10.659,backward_compute_time=19.145,activation_size=[13107200.0, 524288.0, 524288.0],parameter_size=50364416.0]"]
+	node86 [label="__getitem__(0)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node87 [label="__getitem__(1)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=524288.0,parameter_size=0.0]"]
+	node88 [label="Add
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node89 [label="Dropout(p=0.2)
+[forward_compute_time=0.144,backward_compute_time=0.201,activation_size=13107200.0,parameter_size=0.0]"]
+	node90 [label="Concat(2)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node91 [label="__getitem__(7)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=0.0,parameter_size=0.0]"]
+	node92 [label="LSTM(2048, 1024)
+[forward_compute_time=10.611,backward_compute_time=66.214,activation_size=[13107200.0, 524288.0, 524288.0],parameter_size=50364416.0]"]
+	node93 [label="__getitem__(0)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node94 [label="__getitem__(1)
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=524288.0,parameter_size=0.0]"]
+	node95 [label="Add
+[forward_compute_time=0.000,backward_compute_time=0.000,activation_size=13107200.0,parameter_size=0.0]"]
+	node96 [label="Classifier(
+  (classifier): Linear(in_features=1024, out_features=32320, bias=True)
+)
+[forward_compute_time=24.782,backward_compute_time=5.373,activation_size=413696000.0,parameter_size=132512000.0]"]
+	node1 -> node4
+	node4 -> node5
+	node5 -> node6
+	node2 -> node5
+	node2 -> node43
+	node6 -> node7
+	node7 -> node8
+	node7 -> node9
+	node8 -> node10
+	node8 -> node14
+	node10 -> node11
+	node11 -> node12
+	node11 -> node13
+	node12 -> node14
+	node14 -> node15
+	node14 -> node19
+	node15 -> node16
+	node16 -> node17
+	node16 -> node18
+	node17 -> node19
+	node19 -> node20
+	node19 -> node24
+	node20 -> node21
+	node21 -> node22
+	node21 -> node23
+	node22 -> node24
+	node24 -> node25
+	node24 -> node29
+	node25 -> node26
+	node26 -> node27
+	node26 -> node28
+	node27 -> node29
+	node29 -> node30
+	node29 -> node34
+	node30 -> node31
+	node31 -> node32
+	node31 -> node33
+	node32 -> node34
+	node34 -> node35
+	node34 -> node39
+	node35 -> node36
+	node36 -> node37
+	node36 -> node38
+	node37 -> node39
+	node39 -> node43
+	node3 -> node41
+	node41 -> node43
+	node40 -> node42
+	node40 -> node50
+	node40 -> node56
+	node40 -> node63
+	node40 -> node70
+	node40 -> node77
+	node40 -> node84
+	node40 -> node91
+	node42 -> node43
+	node43 -> node44
+	node43 -> node45
+	node43 -> node46
+	node43 -> node47
+	node44 -> node48
+	node46 -> node49
+	node46 -> node55
+	node46 -> node62
+	node46 -> node69
+	node46 -> node76
+	node46 -> node83
+	node46 -> node90
+	node48 -> node49
+	node49 -> node51
+	node50 -> node51
+	node51 -> node52
+	node51 -> node53
+	node52 -> node54
+	node52 -> node60
+	node54 -> node55
+	node55 -> node57
+	node56 -> node57
+	node57 -> node58
+	node57 -> node59
+	node58 -> node60
+	node60 -> node61
+	node60 -> node67
+	node61 -> node62
+	node62 -> node64
+	node63 -> node64
+	node64 -> node65
+	node64 -> node66
+	node65 -> node67
+	node67 -> node68
+	node67 -> node74
+	node68 -> node69
+	node69 -> node71
+	node70 -> node71
+	node71 -> node72
+	node71 -> node73
+	node72 -> node74
+	node74 -> node75
+	node74 -> node81
+	node75 -> node76
+	node76 -> node78
+	node77 -> node78
+	node78 -> node79
+	node78 -> node80
+	node79 -> node81
+	node81 -> node82
+	node81 -> node88
+	node82 -> node83
+	node83 -> node85
+	node84 -> node85
+	node85 -> node86
+	node85 -> node87
+	node86 -> node88
+	node88 -> node89
+	node88 -> node95
+	node89 -> node90
+	node90 -> node92
+	node91 -> node92
+	node92 -> node93
+	node92 -> node94
+	node93 -> node95
+	node95 -> node96
+}

@@ -1,0 +1,46 @@
+node11 -- ReLU(inplace) -- forward_compute_time=0.539, backward_compute_time=0.188, activation_size=44302336.000, parameter_size=0.000
+node10 -- Conv2d(384, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)) -- forward_compute_time=4.423, backward_compute_time=7.197, activation_size=44302336.000, parameter_size=3539968.000
+node13 -- ReLU(inplace) -- forward_compute_time=0.524, backward_compute_time=0.176, activation_size=44302336.000, parameter_size=0.000
+node12 -- Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)) -- forward_compute_time=2.815, backward_compute_time=5.497, activation_size=44302336.000, parameter_size=2360320.000
+node15 -- Size(0) -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=4.000, parameter_size=0.000
+node14 -- MaxPool2d(kernel_size=3, stride=2, padding=0, dilation=1, ceil_mode=False) -- forward_compute_time=0.391, backward_compute_time=0.306, activation_size=9437184.000, parameter_size=0.000
+node17 -- Dropout(p=0.5) -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=9437184.000, parameter_size=0.000
+node16 -- View(9216) -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=9437184.000, parameter_size=0.000
+node19 -- ReLU(inplace) -- forward_compute_time=0.471, backward_compute_time=0.039, activation_size=4194304.000, parameter_size=0.000
+node18 -- Linear(in_features=9216, out_features=4096, bias=True) -- forward_compute_time=1.737, backward_compute_time=3.072, activation_size=4194304.000, parameter_size=151011328.000
+node20 -- Dropout(p=0.5) -- forward_compute_time=0.000, backward_compute_time=0.000, activation_size=4194304.000, parameter_size=0.000
+node21 -- Linear(in_features=4096, out_features=4096, bias=True) -- forward_compute_time=1.075, backward_compute_time=1.366, activation_size=4194304.000, parameter_size=67125248.000
+node22 -- ReLU(inplace) -- forward_compute_time=0.283, backward_compute_time=0.043, activation_size=4194304.000, parameter_size=0.000
+node23 -- Linear(in_features=4096, out_features=1000, bias=True) -- forward_compute_time=0.453, backward_compute_time=0.474, activation_size=1024000.000, parameter_size=16388000.000
+node9 -- ReLU(inplace) -- forward_compute_time=0.427, backward_compute_time=0.269, activation_size=66453504.000, parameter_size=0.000
+node8 -- Conv2d(192, 384, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1)) -- forward_compute_time=3.260, backward_compute_time=6.610, activation_size=66453504.000, parameter_size=2655744.000
+node1 -- Input -- forward_compute_time=635.902, backward_compute_time=0.000, activation_size=154140672.000, parameter_size=0.000
+node3 -- ReLU(inplace) -- forward_compute_time=0.813, backward_compute_time=0.733, activation_size=198246400.000, parameter_size=0.000
+node2 -- Conv2d(3, 64, kernel_size=(11, 11), stride=(4, 4), padding=(2, 2)) -- forward_compute_time=22.316, backward_compute_time=6.405, activation_size=198246400.000, parameter_size=93184.000
+node5 -- Conv2d(64, 192, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2)) -- forward_compute_time=3.128, backward_compute_time=5.612, activation_size=143327232.000, parameter_size=1229568.000
+node4 -- MaxPool2d(kernel_size=3, stride=2, padding=0, dilation=1, ceil_mode=False) -- forward_compute_time=0.756, backward_compute_time=1.148, activation_size=47775744.000, parameter_size=0.000
+node7 -- MaxPool2d(kernel_size=3, stride=2, padding=0, dilation=1, ceil_mode=False) -- forward_compute_time=0.579, backward_compute_time=0.861, activation_size=33226752.000, parameter_size=0.000
+node6 -- ReLU(inplace) -- forward_compute_time=0.811, backward_compute_time=0.524, activation_size=143327232.000, parameter_size=0.000
+	node11 -- node12
+	node10 -- node11
+	node13 -- node14
+	node12 -- node13
+	node15 -- node16
+	node14 -- node15
+	node14 -- node16
+	node17 -- node18
+	node16 -- node17
+	node19 -- node20
+	node18 -- node19
+	node20 -- node21
+	node21 -- node22
+	node22 -- node23
+	node9 -- node10
+	node8 -- node9
+	node1 -- node2
+	node3 -- node4
+	node2 -- node3
+	node5 -- node6
+	node4 -- node5
+	node7 -- node8
+	node6 -- node7
