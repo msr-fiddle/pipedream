@@ -55,27 +55,30 @@ important).
 With input pipelining,
 
 ```bash
-python main_with_runtime.py --module models.resnet50.gpus=2 -b 64 --data_dir ../../../data/imagenet --rank 0 --master_addr v11 --config_path models/resnet50/gpus=2/mp_conf.json
-python main_with_runtime.py --module models.resnet50.gpus=2 -b 64 --data_dir ../../../data/imagenet --rank 1 --master_addr v11 --config_path models/resnet50/gpus=2/mp_conf.json
+python main_with_runtime.py --module models.resnet50.gpus=2 -b 64 --data_dir ../../../data/imagenet --rank 0 --local_rank 0 --master_addr localhost --config_path models/resnet50/gpus=2/mp_conf.json --distributed_backend gloo
+python main_with_runtime.py --module models.resnet50.gpus=2 -b 64 --data_dir ../../../data/imagenet --rank 1 --local_rank 1 --master_addr localhost --config_path models/resnet50/gpus=2/mp_conf.json --distributed_backend gloo
 ```
 
 Without input pipelining,
 
 ```bash
-python main_with_runtime.py --module models.resnet50.gpus=2 -b 64 --data_dir ../../../data/imagenet --rank 0 --master_addr v11 --config_path models/resnet50/gpus=2/mp_conf.json --no_input_pipelining
-python main_with_runtime.py --module models.resnet50.gpus=2 -b 64 --data_dir ../../../data/imagenet --rank 1 --master_addr v11 --config_path models/resnet50/gpus=2/mp_conf.json --no_input_pipelining
+python main_with_runtime.py --module models.resnet50.gpus=2 -b 64 --data_dir ../../../data/imagenet --rank 0 --local_rank 0 --master_addr localhost --config_path models/resnet50/gpus=2/mp_conf.json --no_input_pipelining --distributed_backend gloo
+python main_with_runtime.py --module models.resnet50.gpus=2 -b 64 --data_dir ../../../data/imagenet --rank 1 --local_rank 1 --master_addr localhost --config_path models/resnet50/gpus=2/mp_conf.json --no_input_pipelining --distributed_backend gloo
 ```
 
 With data parallelism (and no input pipelining),
 
 ```bash
-python main_with_runtime.py --module models.resnet50.gpus=2 -b 128 --data_dir ../../../data/imagenet --rank 0 --master_addr v11 --config_path models/resnet50/gpus=2/dp_conf.json --no_input_pipelining
-python main_with_runtime.py --module models.resnet50.gpus=2 -b 128 --data_dir ../../../data/imagenet --rank 1 --master_addr v11 --config_path models/resnet50/gpus=2/dp_conf.json --no_input_pipelining
+python main_with_runtime.py --module models.resnet50.gpus=2 -b 128 --data_dir ../../../data/imagenet --rank 0 --local_rank 0 --master_addr localhost --config_path models/resnet50/gpus=2/dp_conf.json --no_input_pipelining --distributed_backend nccl
+python main_with_runtime.py --module models.resnet50.gpus=2 -b 128 --data_dir ../../../data/imagenet --rank 1 --local_rank 1 --master_addr localhost --config_path models/resnet50/gpus=2/dp_conf.json --no_input_pipelining --distributed_backend nccl
 ```
+
+Note that for DP-only setups, we use the `nccl` backend for optimal performance.
+
 
 With hybrid parallelism (model and data parallelism, and pipelining),
 
 ```bash
-python main_with_runtime.py --module models.resnet50.gpus=2 -b 64 --data_dir ../../../data/imagenet --rank 0 --master_addr v11 --config_path models/resnet50/gpus=2/hybrid_conf.json
-python main_with_runtime.py --module models.resnet50.gpus=2 -b 64 --data_dir ../../../data/imagenet --rank 1 --master_addr v11 --config_path models/resnet50/gpus=2/hybrid_conf.json
+python main_with_runtime.py --module models.resnet50.gpus=2 -b 64 --data_dir ../../../data/imagenet --rank 0 --local_rank 0 --master_addr localhost --config_path models/resnet50/gpus=2/hybrid_conf.json --distributed_backend gloo
+python main_with_runtime.py --module models.resnet50.gpus=2 -b 64 --data_dir ../../../data/imagenet --rank 1 --local_rank 1 --master_addr localhost --config_path models/resnet50/gpus=2/hybrid_conf.json --distributed_backend gloo
 ```

@@ -107,13 +107,16 @@ python convert_graph_to_model.py -f vgg16_partitioned/gpus=4.txt -n VGG16Partiti
 [from `pipedream/runtime/image_classification`; run on 4 GPUs (including a single server with 4 GPUs)]
 
 ```bash
-python main_with_runtime.py --module models.vgg16.gpus=4 -b 64 --data_dir <path to ImageNet> --rank 0 --master_addr <master IP address> --config_path models/vgg16/gpus=4/hybrid_conf.json
-python main_with_runtime.py --module models.vgg16.gpus=4 -b 64 --data_dir <path to ImageNet> --rank 1 --master_addr <master IP address> --config_path models/vgg16/gpus=4/hybrid_conf.json
-python main_with_runtime.py --module models.vgg16.gpus=4 -b 64 --data_dir <path to ImageNet> --rank 2 --master_addr <master IP address> --config_path models/vgg16/gpus=4/hybrid_conf.json
-python main_with_runtime.py --module models.vgg16.gpus=4 -b 64 --data_dir <path to ImageNet> --rank 3 --master_addr <master IP address> --config_path models/vgg16/gpus=4/hybrid_conf.json
+python main_with_runtime.py --module models.vgg16.gpus=4 -b 64 --data_dir <path to ImageNet> --rank 0 --local_rank 0 --master_addr <master IP address> --config_path models/vgg16/gpus=4/hybrid_conf.json --distributed_backend gloo
+python main_with_runtime.py --module models.vgg16.gpus=4 -b 64 --data_dir <path to ImageNet> --rank 1 --local_rank 1 --master_addr <master IP address> --config_path models/vgg16/gpus=4/hybrid_conf.json --distributed_backend gloo
+python main_with_runtime.py --module models.vgg16.gpus=4 -b 64 --data_dir <path to ImageNet> --rank 2 --local_rank 2 --master_addr <master IP address> --config_path models/vgg16/gpus=4/hybrid_conf.json --distributed_backend gloo
+python main_with_runtime.py --module models.vgg16.gpus=4 -b 64 --data_dir <path to ImageNet> --rank 3 --local_rank 3 --master_addr <master IP address> --config_path models/vgg16/gpus=4/hybrid_conf.json --distributed_backend gloo
 ```
 
 `master IP address` here is the IP address of the rank 0 process. On a server with 4 GPUs, `localhost` can be specified.
+
+When running DP setups, please use the `nccl` backend for optimal performance. When running hybrid setups, please use
+the `gloo` backend.
 
 
 ## Code of Conduct
