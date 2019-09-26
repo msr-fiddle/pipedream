@@ -101,7 +101,7 @@ python optimizer_graph_hierarchical.py -f ../profiler/image_classification/profi
 [from `pipedream/optimizer`]
 
 ```bash
-python convert_graph_to_model.py -f vgg16_partitioned/gpus=4.txt -n VGG16Partitioned -a vgg16 -o ../runtime/models/vgg16/gpus=4 --stage_to_num_ranks 0:3,1:1
+python convert_graph_to_model.py -f vgg16_partitioned/gpus=4.txt -n VGG16Partitioned -a vgg16 -o ../runtime/image_classification/models/vgg16/gpus=4 --stage_to_num_ranks 0:3,1:1
 ```
 
 [from `pipedream/runtime/image_classification`; run on 4 GPUs (including a single server with 4 GPUs)]
