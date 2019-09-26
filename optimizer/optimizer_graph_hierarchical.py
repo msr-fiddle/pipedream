@@ -17,8 +17,7 @@ import utils
 def compute_partitioning(compute_times, activation_sizes, parameter_sizes,
                          output_activation_sizes, all_predecessor_ids,
                          num_machines, num_machines_within_machine,
-                         num_machines_in_first_level, bandwidth,
-                         final_level=True):
+                         bandwidth, final_level=True):
     A = []
     for i in range(len(compute_times)):
         row_A = []
@@ -42,16 +41,14 @@ def compute_partitioning(compute_times, activation_sizes, parameter_sizes,
                     continue
                 data_parallel_communication_time = (4 * m * cum_parameter_size) / (bandwidth * (m+1))
                 data_parallel_communication_time /= num_machines_within_machine
-                if num_machines_in_first_level is not None and m != (num_machines_in_first_level - 1):
-                    continue
-                else:
-                    if cum_compute_time is None:
-                        A[i][j][m] = (None, None, None)
-                    else:
-                        A[i][j][m] = (sum([cum_compute_time,
-                                           data_parallel_communication_time]) / (m+1), None, (m+1))
 
-    min_machines = 1 if num_machines_in_first_level is None else num_machines_in_first_level
+                if cum_compute_time is None:
+                    A[i][j][m] = (None, None, None)
+                else:
+                    A[i][j][m] = (sum([cum_compute_time,
+                                       data_parallel_communication_time]) / (m+1), None, (m+1))
+
+    min_machines = 1
     max_i = len(compute_times) if not final_level else 1
     for i in range(max_i):
         for m in range(min_machines, num_machines):
@@ -195,12 +192,8 @@ def analyze_partitioning(A, states, start, end, network_bandwidth, num_machines,
 
 def main(all_num_machines, profile_filename, network_bandwidths, memory_size,
          straight_pipeline, use_memory_constraint, use_fewer_machines,
-         activation_compression_ratio, output_directory, num_machines_in_first_level=None,
+         activation_compression_ratio, output_directory,
          print_configuration=True, verbose=False):
-    if (num_machines_in_first_level is not None and
-        num_machines_in_first_level > num_machines):
-        raise Exception("num_machines_in_first_level has to less than num_machines!")
-
     gr = graph.Graph.from_str(open(profile_filename, 'r').read())
 
     # Zero out all metadata associated with inputs in graph, since the optimizer
@@ -293,7 +286,6 @@ def main(all_num_machines, profile_filename, network_bandwidths, memory_size,
         A = compute_partitioning(compute_times, activation_sizes, parameter_sizes,
                                  output_activation_sizes, all_predecessor_ids,
                                  num_machines, num_machines_in_machine,
-                                 num_machines_in_first_level,
                                  network_bandwidth,
                                  final_level=(counter==len(network_bandwidths)))
         num_machines_in_machine = num_machines
@@ -392,8 +384,6 @@ if __name__ == '__main__':
                         help="Profile filename")
     parser.add_argument('-b', "--network_bandwidths", type=float, nargs='+', default=[1000000000],
                         help="Available network bandwidth in bytes/sec")
-    parser.add_argument('-m', "--num_machines_in_first_level", type=int, default=None,
-                        help="Number of machines in first level")
     parser.add_argument('-s', "--memory_size", type=float, default=16000000000,
                         help="Amount of memory available on each machine")
     parser.add_argument("--straight_pipeline", action='store_true',
@@ -415,7 +405,6 @@ if __name__ == '__main__':
     network_bandwidths = args["network_bandwidths"]
     assert(len(all_num_machines) == len(network_bandwidths))
     memory_size = args["memory_size"]
-    num_machines_in_first_level = args["num_machines_in_first_level"]
     straight_pipeline = args["straight_pipeline"]
     output_directory = args["output_directory"]
     use_memory_constraint = args["use_memory_constraint"]
@@ -425,5 +414,4 @@ if __name__ == '__main__':
     main(all_num_machines, profile_filename, network_bandwidths, memory_size,
          straight_pipeline, use_memory_constraint, use_fewer_machines,
          activation_compression_ratio, output_directory,
-         num_machines_in_first_level=num_machines_in_first_level,
          verbose=True)
