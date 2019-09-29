@@ -75,8 +75,14 @@ class TensorWrapper(object):
             else:
                 sizes.append(wrapped_size)
         result = self.tensor.view(*sizes)
-        wrapped_result = TensorWrapper(result, "View", self.graph_creator,
-                                       activation_size=self.node().activation_size)
+        if len(sizes) == 1:
+            wrapped_result = TensorWrapper(result, "View", self.graph_creator,
+                                           activation_size=self.node().activation_size)
+        else:
+            wrapped_result = TensorWrapper(result,
+                                           "View(%s)" % ", ".join([str(size) for size in sizes[1:]]),
+                                           self.graph_creator,
+                                           activation_size=self.node().activation_size)
         self.graph_creator.graph.add_edge(self._node, wrapped_result.node())
         for in_edge in in_edges:
             self.graph_creator.graph.add_edge(in_edge.node(), wrapped_result.node())
