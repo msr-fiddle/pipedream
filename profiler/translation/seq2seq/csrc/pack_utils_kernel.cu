@@ -1,5 +1,6 @@
 #include <ATen/ATen.h>
 #include "ATen/cuda/CUDAContext.h"
+#include <torch/torch.h>
 namespace at { namespace native {
 
     namespace {
@@ -23,7 +24,7 @@ namespace at { namespace native {
     at::Tensor revert_varlen_tensor(const Tensor& _input, const Tensor& _lengths){
        at::native::checkLongTensor(_lengths);
        auto input = _input.contiguous(); 
-       auto output = at::empty_like(input);
+       auto output = torch::empty_like(input);
        int64_t seq_length = input.size(0);
        int64_t batch_size = input.size(1);
        int64_t * lengths = _lengths.data<int64_t>();
@@ -52,7 +53,7 @@ namespace at { namespace native {
        int numBlocks = batch_size * seq_length;
        auto offsets_tensor = at::CPU(kLong).tensorFromBlob(offsets.data(), batch_size * seq_length).toType(CUDA(kLong), true);
 //       auto offsets_tensor_gpu = at::empty_like(offsets_tensor, 
-       AT_DISPATCH_ALL_TYPES_AND_HALF(input.type(), "revert_varlen", [&] {
+       AT_DISPATCH_FLOATING_TYPES_AND_HALF(input.type(), "revert_varlen", [&] {
        revert_varlen_kernel<<<numBlocks, numThreads, 0, at::cuda::getCurrentCUDAStream()>>>(
       input.data<scalar_t>(), output.data<scalar_t>(),  offsets_tensor.data<int64_t>(), feature_size, batch_size * seq_length, static_cast<scalar_t>(0));
   });
