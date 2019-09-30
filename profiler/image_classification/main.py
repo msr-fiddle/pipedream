@@ -402,10 +402,6 @@ def profile_train(train_loader, model, criterion, optimizer):
             print(layer_times[-1][0], layer_times[-1][1], layer_times[-1][2])
         tot_accounted_time += (layer_times[-1][1] + layer_times[-1][2])
 
-    torchprofiler.dump_stats_to_csv(layer_timestamps, iteration_timestamps, data_timestamps,
-                                    opt_step_timestamps)
-    torchprofiler.generate_json(30, 35, layer_timestamps, iteration_timestamps,
-                                data_timestamps, opt_step_timestamps)
     print()
     print("Total accounted time: %.3f ms" % tot_accounted_time)
     return layer_times, (sum(data_times) * 1000.0) / len(data_times)
