@@ -10,7 +10,7 @@ with open('requirements.txt') as f:
         reqs = f.read()
 
 cat_utils = CUDAExtension(
-                        name='seq2seq.pack_utils._C',
+                        name='pack_utils._C',
                         sources=['seq2seq/csrc/pack_utils.cpp', 'seq2seq/csrc/pack_utils_kernel.cu'],
                         extra_compile_args={
                                 'cxx': ['-O2',],

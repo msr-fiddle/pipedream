@@ -7,7 +7,7 @@ from torch.nn.utils.rnn import pack_padded_sequence
 from torch.nn.utils.rnn import pad_packed_sequence
 
 import seq2seq.data.config as config
-import seq2seq.pack_utils._C as C
+import pack_utils._C as C
 
 
 class Revert_varlen(torch.autograd.Function):
@@ -62,11 +62,6 @@ class EmuBidirLSTM(nn.Module):
             return self.bidir_lstm(self.bidir, input, lengths)
         else:
             return self.emu_bidir_lstm(self.layer1, self.layer2, input, lengths)
-
-
-
-
-
 
 class ResidualRecurrentEncoder(nn.Module):
     """
