@@ -10,5 +10,6 @@ if __name__ == '__main__':
                         help="Path where ImageNet dataset should be downloaded")
     args = parser.parse_args()
 
-    imagenet_data = imagenet.ImageNet(args.data_dir, download=True, split='train')
-    imagenet_data = imagenet.ImageNet(args.data_dir, download=True, split='val')
+    imagenet.parse_train_archive(args.data_dir)
+    imagenet.parse_devkit_archive(args.data_dir)
+    imagenet.parse_val_archive(args.data_dir)
