@@ -1,8 +1,8 @@
 # Copyright (c) Microsoft Corporation.
 # Licensed under the MIT license.
 
-from __future__ import print_function
-import errno
+import warnings
+from contextlib import contextmanager
 import hashlib
 import os
 import shutil
@@ -12,41 +12,14 @@ import gzip
 import tarfile
 import zipfile
 from torchvision.datasets.folder import ImageFolder
-from torch.utils.model_zoo import tqdm
 
-ARCHIVE_DICT = {
-    'train': {
-        'url': 'http://www.image-net.org/challenges/LSVRC/2012/nnoupb/ILSVRC2012_img_train.tar',
-        'md5': '1d675b47d978889d74fa0da5fadfb00e',
-    },
-    'val': {
-        'url': 'http://www.image-net.org/challenges/LSVRC/2012/nnoupb/ILSVRC2012_img_val.tar',
-        'md5': '29b22e2961454d5413ddabcf34fc5622',
-    },
-    'devkit': {
-        'url': 'http://www.image-net.org/challenges/LSVRC/2012/nnoupb/ILSVRC2012_devkit_t12.tar.gz',
-        'md5': 'fa75699e90414af021442c21a62c3abf',
-    }
+ARCHIVE_META = {
+    'train': ('ILSVRC2012_img_train.tar', '1d675b47d978889d74fa0da5fadfb00e'),
+    'val': ('ILSVRC2012_img_val.tar', '29b22e2961454d5413ddabcf34fc5622'),
+    'devkit': ('ILSVRC2012_devkit_t12.tar.gz', 'fa75699e90414af021442c21a62c3abf')
 }
 
-def gen_bar_updater():
-    pbar = tqdm(total=None)
-
-    def bar_update(count, block_size, total_size):
-        if pbar.total is None and total_size:
-            pbar.total = total_size
-        progress_bytes = count * block_size
-        pbar.update(progress_bytes - pbar.n)
-
-    return bar_update
-
-
-def check_integrity(fpath, md5=None):
-    if not os.path.isfile(fpath):
-        return False
-    if md5 is None:
-        return True
-    return check_md5(fpath, md5)
+META_FILE = "meta.bin"
 
 
 def calculate_md5(fpath, chunk_size=1024 * 1024):
@@ -61,17 +34,16 @@ def check_md5(fpath, md5, **kwargs):
     return md5 == calculate_md5(fpath, **kwargs)
 
 
-def makedir_exist_ok(dirpath):
-    """
-    Python2 support for os.makedirs(.., exist_ok=True)
-    """
-    try:
-        os.makedirs(dirpath)
-    except OSError as e:
-        if e.errno == errno.EEXIST:
-            pass
-        else:
-            raise
+def check_integrity(fpath, md5=None):
+    if not os.path.isfile(fpath):
+        return False
+    if md5 is None:
+        return True
+    return check_md5(fpath, md5)
+
+
+def _is_tarxz(filename):
+    return filename.endswith(".tar.xz")
 
 
 def _is_tar(filename):
@@ -90,46 +62,6 @@ def _is_zip(filename):
     return filename.endswith(".zip")
 
 
-def download_url(url, root, filename=None, md5=None):
-    """Download a file from a url and place it in root.
-    Args:
-        url (str): URL to download file from
-        root (str): Directory to place downloaded file in
-        filename (str, optional): Name to save the file under. If None, use the basename of the URL
-        md5 (str, optional): MD5 checksum of the download. If None, do not check
-    """
-    from six.moves import urllib
-
-    root = os.path.expanduser(root)
-    if not filename:
-        filename = os.path.basename(url)
-    fpath = os.path.join(root, filename)
-
-    makedir_exist_ok(root)
-
-    # downloads file
-    if check_integrity(fpath, md5):
-        print('Using downloaded and verified file: ' + fpath)
-    else:
-        try:
-            print('Downloading ' + url + ' to ' + fpath)
-            urllib.request.urlretrieve(
-                url, fpath,
-                reporthook=gen_bar_updater()
-            )
-        except (urllib.error.URLError, IOError) as e:
-            if url[:5] == 'https':
-                url = url.replace('https:', 'http:')
-                print('Failed download. Trying https -> http instead.'
-                      ' Downloading ' + url + ' to ' + fpath)
-                urllib.request.urlretrieve(
-                    url, fpath,
-                    reporthook=gen_bar_updater()
-                )
-            else:
-                raise e
-
-
 def extract_archive(from_path, to_path=None, remove_finished=False):
     if to_path is None:
         to_path = os.path.dirname(from_path)
@@ -139,6 +71,10 @@ def extract_archive(from_path, to_path=None, remove_finished=False):
             tar.extractall(path=to_path)
     elif _is_targz(from_path):
         with tarfile.open(from_path, 'r:gz') as tar:
+            tar.extractall(path=to_path)
+    elif _is_tarxz(from_path) and PY3:
+        # .tar.xz archive only supported in Python 3.x
+        with tarfile.open(from_path, 'r:xz') as tar:
             tar.extractall(path=to_path)
     elif _is_gzip(from_path):
         to_path = os.path.join(to_path, os.path.splitext(os.path.basename(from_path))[0])
@@ -152,21 +88,6 @@ def extract_archive(from_path, to_path=None, remove_finished=False):
 
     if remove_finished:
         os.remove(from_path)
-
-
-def download_and_extract_archive(url, download_root, extract_root=None, filename=None,
-                                 md5=None, remove_finished=False):
-    download_root = os.path.expanduser(download_root)
-    if extract_root is None:
-        extract_root = download_root
-    if not filename:
-        filename = os.path.basename(url)
-
-    download_url(url, download_root, filename, md5)
-
-    archive = os.path.join(download_root, filename)
-    print("Extracting {} to {}".format(archive, extract_root))
-    extract_archive(archive, extract_root, remove_finished)
 
 
 def verify_str_arg(value, arg=None, valid_values=None, custom_msg=None):
@@ -200,9 +121,6 @@ class ImageNet(ImageFolder):
     Args:
         root (string): Root directory of the ImageNet Dataset.
         split (string, optional): The dataset split, supports ``train``, or ``val``.
-        download (bool, optional): If true, downloads the dataset from the internet and
-            puts it in root directory. If dataset is already downloaded, it is not
-            downloaded again.
         transform (callable, optional): A function/transform that  takes in an PIL image
             and returns a transformed version. E.g, ``transforms.RandomCrop``
         target_transform (callable, optional): A function/transform that takes in the
@@ -218,13 +136,21 @@ class ImageNet(ImageFolder):
         targets (list): The class_index value for each image in the dataset
     """
 
-    def __init__(self, root, split='train', download=False, **kwargs):
+    def __init__(self, root, split='train', download=None, **kwargs):
+        if download is True:
+            msg = ("The dataset is no longer publicly accessible. You need to "
+                   "download the archives externally and place them in the root "
+                   "directory.")
+            raise RuntimeError(msg)
+        elif download is False:
+            msg = ("The use of the download flag is deprecated, since the dataset "
+                   "is no longer publicly accessible.")
+            warnings.warn(msg, RuntimeWarning)
         root = self.root = os.path.expanduser(root)
         self.split = verify_str_arg(split, "split", ("train", "val"))
 
-        if download:
-            self.download()
-        wnid_to_classes = self._load_meta_file()[0]
+        self.parse_archives()
+        wnid_to_classes = load_meta_file(self.root)[0]
 
         super(ImageNet, self).__init__(self.split_folder, **kwargs)
         self.root = root
@@ -236,50 +162,15 @@ class ImageNet(ImageFolder):
                              for idx, clss in enumerate(self.classes)
                              for cls in clss}
 
-    def download(self):
-        if not check_integrity(self.meta_file):
-            tmp_dir = tempfile.mkdtemp()
-
-            archive_dict = ARCHIVE_DICT['devkit']
-            download_and_extract_archive(archive_dict['url'], self.root,
-                                         extract_root=tmp_dir,
-                                         md5=archive_dict['md5'])
-            devkit_folder = _splitexts(os.path.basename(archive_dict['url']))[0]
-            meta = parse_devkit(os.path.join(tmp_dir, devkit_folder))
-            self._save_meta_file(*meta)
-
-            shutil.rmtree(tmp_dir)
+    def parse_archives(self):
+        if not check_integrity(os.path.join(self.root, META_FILE)):
+            parse_devkit_archive(self.root)
 
         if not os.path.isdir(self.split_folder):
-            archive_dict = ARCHIVE_DICT[self.split]
-            download_and_extract_archive(archive_dict['url'], self.root,
-                                         extract_root=self.split_folder,
-                                         md5=archive_dict['md5'])
-
             if self.split == 'train':
-                prepare_train_folder(self.split_folder)
+                parse_train_archive(self.root)
             elif self.split == 'val':
-                val_wnids = self._load_meta_file()[1]
-                prepare_val_folder(self.split_folder, val_wnids)
-        else:
-            msg = ("You set download=True, but a folder '{}' already exist in "
-                   "the root directory. If you want to re-download or re-extract the "
-                   "archive, delete the folder.")
-            print(msg.format(self.split))
-
-    @property
-    def meta_file(self):
-        return os.path.join(self.root, 'meta.bin')
-
-    def _load_meta_file(self):
-        if check_integrity(self.meta_file):
-            return torch.load(self.meta_file)
-        else:
-            raise RuntimeError("Meta file not found or corrupted.",
-                               "You can use download=True to create it.")
-
-    def _save_meta_file(self, wnid_to_class, val_wnids):
-        torch.save((wnid_to_class, val_wnids), self.meta_file)
+                parse_val_archive(self.root)
 
     @property
     def split_folder(self):
@@ -289,54 +180,137 @@ class ImageNet(ImageFolder):
         return "Split: {split}".format(**self.__dict__)
 
 
-def parse_devkit(root):
-    idx_to_wnid, wnid_to_classes = parse_meta(root)
-    val_idcs = parse_val_groundtruth(root)
-    val_wnids = [idx_to_wnid[idx] for idx in val_idcs]
-    return wnid_to_classes, val_wnids
+def load_meta_file(root, file=None):
+    if file is None:
+        file = META_FILE
+    file = os.path.join(root, file)
+
+    if check_integrity(file):
+        return torch.load(file)
+    else:
+        msg = ("The meta file {} is not present in the root directory or is corrupted. "
+               "This file is automatically created by the ImageNet dataset.")
+        raise RuntimeError(msg.format(file, root))
 
 
-def parse_meta(devkit_root, path='data', filename='meta.mat'):
+def _verify_archive(root, file, md5):
+    if not check_integrity(os.path.join(root, file), md5):
+        msg = ("The archive {} is not present in the root directory or is corrupted. "
+               "You need to download it externally and place it in {}.")
+        raise RuntimeError(msg.format(file, root))
+
+
+def parse_devkit_archive(root, file=None):
+    """Parse the devkit archive of the ImageNet2012 classification dataset and save
+    the meta information in a binary file.
+
+    Args:
+        root (str): Root directory containing the devkit archive
+        file (str, optional): Name of devkit archive. Defaults to
+            'ILSVRC2012_devkit_t12.tar.gz'
+    """
     import scipy.io as sio
 
-    metafile = os.path.join(devkit_root, path, filename)
-    meta = sio.loadmat(metafile, squeeze_me=True)['synsets']
-    nums_children = list(zip(*meta))[4]
-    meta = [meta[idx] for idx, num_children in enumerate(nums_children)
-            if num_children == 0]
-    idcs, wnids, classes = list(zip(*meta))[:3]
-    classes = [tuple(clss.split(', ')) for clss in classes]
-    idx_to_wnid = {idx: wnid for idx, wnid in zip(idcs, wnids)}
-    wnid_to_classes = {wnid: clss for wnid, clss in zip(wnids, classes)}
-    return idx_to_wnid, wnid_to_classes
+    def parse_meta_mat(devkit_root):
+        metafile = os.path.join(devkit_root, "data", "meta.mat")
+        meta = sio.loadmat(metafile, squeeze_me=True)['synsets']
+        nums_children = list(zip(*meta))[4]
+        meta = [meta[idx] for idx, num_children in enumerate(nums_children)
+                if num_children == 0]
+        idcs, wnids, classes = list(zip(*meta))[:3]
+        classes = [tuple(clss.split(', ')) for clss in classes]
+        idx_to_wnid = {idx: wnid for idx, wnid in zip(idcs, wnids)}
+        wnid_to_classes = {wnid: clss for wnid, clss in zip(wnids, classes)}
+        return idx_to_wnid, wnid_to_classes
+
+    def parse_val_groundtruth_txt(devkit_root):
+        file = os.path.join(devkit_root, "data",
+                            "ILSVRC2012_validation_ground_truth.txt")
+        with open(file, 'r') as txtfh:
+            val_idcs = txtfh.readlines()
+        return [int(val_idx) for val_idx in val_idcs]
+
+    @contextmanager
+    def get_tmp_dir():
+        tmp_dir = tempfile.mkdtemp()
+        try:
+            yield tmp_dir
+        finally:
+            shutil.rmtree(tmp_dir)
+
+    archive_meta = ARCHIVE_META["devkit"]
+    if file is None:
+        file = archive_meta[0]
+    md5 = archive_meta[1]
+
+    _verify_archive(root, file, md5)
+
+    with get_tmp_dir() as tmp_dir:
+        extract_archive(os.path.join(root, file), tmp_dir)
+
+        devkit_root = os.path.join(tmp_dir, "ILSVRC2012_devkit_t12")
+        idx_to_wnid, wnid_to_classes = parse_meta_mat(devkit_root)
+        val_idcs = parse_val_groundtruth_txt(devkit_root)
+        val_wnids = [idx_to_wnid[idx] for idx in val_idcs]
+
+        torch.save((wnid_to_classes, val_wnids), os.path.join(root, META_FILE))
 
 
-def parse_val_groundtruth(devkit_root, path='data',
-                          filename='ILSVRC2012_validation_ground_truth.txt'):
-    with open(os.path.join(devkit_root, path, filename), 'r') as txtfh:
-        val_idcs = txtfh.readlines()
-    return [int(val_idx) for val_idx in val_idcs]
+def parse_train_archive(root, file=None, folder="train"):
+    """Parse the train images archive of the ImageNet2012 classification dataset and
+    prepare it for usage with the ImageNet dataset.
 
+    Args:
+        root (str): Root directory containing the train images archive
+        file (str, optional): Name of train images archive. Defaults to
+            'ILSVRC2012_img_train.tar'
+        folder (str, optional): Optional name for train images folder. Defaults to
+            'train'
+    """
+    archive_meta = ARCHIVE_META["train"]
+    if file is None:
+        file = archive_meta[0]
+    md5 = archive_meta[1]
 
-def prepare_train_folder(folder):
-    for archive in [os.path.join(folder, archive) for archive in os.listdir(folder)]:
+    _verify_archive(root, file, md5)
+
+    train_root = os.path.join(root, folder)
+    extract_archive(os.path.join(root, file), train_root)
+
+    archives = [os.path.join(train_root, archive) for archive in os.listdir(train_root)]
+    for archive in archives:
         extract_archive(archive, os.path.splitext(archive)[0], remove_finished=True)
 
 
-def prepare_val_folder(folder, wnids):
-    img_files = sorted([os.path.join(folder, file) for file in os.listdir(folder)])
+def parse_val_archive(root, file=None, wnids=None, folder="val"):
+    """Parse the validation images archive of the ImageNet2012 classification dataset
+    and prepare it for usage with the ImageNet dataset.
+
+    Args:
+        root (str): Root directory containing the validation images archive
+        file (str, optional): Name of validation images archive. Defaults to
+            'ILSVRC2012_img_val.tar'
+        wnids (list, optional): List of WordNet IDs of the validation images. If None
+            is given, the IDs are loaded from the meta file in the root directory
+        folder (str, optional): Optional name for validation images folder. Defaults to
+            'val'
+    """
+    archive_meta = ARCHIVE_META["val"]
+    if file is None:
+        file = archive_meta[0]
+    md5 = archive_meta[1]
+    if wnids is None:
+        wnids = load_meta_file(root)[1]
+
+    _verify_archive(root, file, md5)
+
+    val_root = os.path.join(root, folder)
+    extract_archive(os.path.join(root, file), val_root)
+
+    images = sorted([os.path.join(val_root, image) for image in os.listdir(val_root)])
 
     for wnid in set(wnids):
-        os.mkdir(os.path.join(folder, wnid))
+        os.mkdir(os.path.join(val_root, wnid))
 
-    for wnid, img_file in zip(wnids, img_files):
-        shutil.move(img_file, os.path.join(folder, wnid, os.path.basename(img_file)))
-
-
-def _splitexts(root):
-    exts = []
-    ext = '.'
-    while ext:
-        root, ext = os.path.splitext(root)
-        exts.append(ext)
-    return root, ''.join(reversed(exts))
+    for wnid, img_file in zip(wnids, images):
+        shutil.move(img_file, os.path.join(val_root, wnid, os.path.basename(img_file)))
