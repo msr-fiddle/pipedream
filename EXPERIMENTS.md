@@ -167,6 +167,9 @@ This step will need to be performed on each target machine to ensure that the
 container image is correct. The container image with `NEW_CONTAINER_NAME` can
 be used in the `container` field in all relevant configuration files.
 
+Note that [this line in `setup.py`](https://github.com/msr-fiddle/pipedream/blob/master/runtime/translation/setup.py#L17)
+might need to be changed depending on the hardware used.
+
 ### Running `driver.py`
 
 Once the configuration file has been run, experiments can be set off using commands
