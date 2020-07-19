@@ -481,7 +481,7 @@ class CommunicationHandler(object):
         self.bwd_messaging_scheduling_col = 0
 
         # For cases where previous stage has less workers than current stage.
-        while self.fwd_messaging_scheduling_row > \
+        while self.fwd_messaging_scheduling_row >= \
             len(self.messaging_schedule):
             self.fwd_messaging_scheduling_row -= 1
             self.bwd_messaging_scheduling_row -= 1
