@@ -234,40 +234,46 @@ def main():
     cudnn.benchmark = True
 
     # Data loading code
-    traindir = os.path.join(args.data_dir, 'train')
-    valdir = os.path.join(args.data_dir, 'val')
     normalize = transforms.Normalize(mean=[0.485, 0.456, 0.406],
                                      std=[0.229, 0.224, 0.225])
 
     if args.arch == 'inception_v3':
-        train_dataset = datasets.ImageFolder(
-            traindir,
-            transforms.Compose([
-                transforms.RandomResizedCrop(299),
-                transforms.ToTensor(),
-                normalize,
-            ])
-        )
         if args.synthetic_data:
-            train_dataset = SyntheticDataset((3, 299, 299), len(train_dataset))
+            train_dataset = SyntheticDataset((3, 299, 299), 10000)
+        else:
+            traindir = os.path.join(args.data_dir, 'train')
+            train_dataset = datasets.ImageFolder(
+                traindir,
+                transforms.Compose([
+                    transforms.RandomResizedCrop(299),
+                    transforms.ToTensor(),
+                    normalize,
+                ])
+            )
     else:
-        train_dataset = datasets.ImageFolder(
-            traindir,
-            transforms.Compose([
-                transforms.RandomResizedCrop(224),
-                transforms.RandomHorizontalFlip(),
-                transforms.ToTensor(),
-                normalize,
-            ]))
         if args.synthetic_data:
-            train_dataset = SyntheticDataset((3, 224, 224), len(train_dataset))
+            train_dataset = SyntheticDataset((3, 224, 224), 1000000)
+        else:
+            traindir = os.path.join(args.data_dir, 'train')
+            train_dataset = datasets.ImageFolder(
+                traindir,
+                transforms.Compose([
+                    transforms.RandomResizedCrop(224),
+                    transforms.RandomHorizontalFlip(),
+                    transforms.ToTensor(),
+                    normalize,
+                ]))
 
-    val_dataset = datasets.ImageFolder(valdir, transforms.Compose([
-        transforms.Resize(256),
-        transforms.CenterCrop(224),
-        transforms.ToTensor(),
-        normalize,
-    ]))
+    if args.synthetic_data:
+        val_dataset = SyntheticDataset((3, 224, 224), 10000)
+    else:
+        valdir = os.path.join(args.data_dir, 'val')
+        val_dataset = datasets.ImageFolder(valdir, transforms.Compose([
+            transforms.Resize(256),
+            transforms.CenterCrop(224),
+            transforms.ToTensor(),
+            normalize,
+        ]))
 
     distributed_sampler = False
     train_sampler = None
