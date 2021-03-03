@@ -1,2 +1,0 @@
-sacrebleu==1.2.10
-mlperf-compliance==0.0.10
