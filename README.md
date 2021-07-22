@@ -1,6 +1,19 @@
+# PipeDream: Pipeline Parallelism for DNN Training
+
+This repository contains the source code implementation of the following
+papers:
+- "[PipeDream: Generalized Pipeline Parallelism for DNN Training](https://www.microsoft.com/en-us/research/publication/pipedream-generalized-pipeline-parallelism-for-dnn-training/)",
+  which appeared at SOSP 2019 (`pipedream` branch).
+- "[Memory-Efficient Pipeline-Parallel DNN Training](https://www.microsoft.com/en-us/research/publication/memory-efficient-pipeline-parallel-dnn-training/)",
+  which appeared at ICML 2021 (`pipedream_2bw` branch).
+
+This work was one as part of Microsoft Research's
+[Project Fiddle](https://aka.ms/msr-fiddle). This source code is available
+under the [MIT License](LICENSE.txt).
+
 # PipeDream-2BW (built on top of Megatron)
 
-This codebase contains an implementation of PipeDream-2BW and other model parallelism
+This branch contains an implementation of PipeDream-2BW and other model parallelism
 baselines (with and without pipelining) built on top of the Megatron codebase
 from Nvidia (under the `megatron` sub-directory).
 
