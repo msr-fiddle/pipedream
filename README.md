@@ -1,9 +1,15 @@
-# PipeDream: Generalized Pipeline Parallelism for DNN Training
+# PipeDream: Pipeline Parallelism for DNN Training
 
-This repository contains the source code implementation of the SOSP paper
-"PipeDream: Generalized Pipeline Parallelism for DNN Training". This work was
-done as part of Microsoft Research's [Project Fiddle](https://aka.ms/msr-fiddle). This source code
-is available under the [MIT License](LICENSE.txt).
+This repository contains the source code implementation of the following
+papers:
+- "[PipeDream: Generalized Pipeline Parallelism for DNN Training](https://www.microsoft.com/en-us/research/publication/pipedream-generalized-pipeline-parallelism-for-dnn-training/)",
+  which appeared at SOSP 2019 (`pipedream` branch).
+- "[Memory-Efficient Pipeline-Parallel DNN Training](https://www.microsoft.com/en-us/research/publication/memory-efficient-pipeline-parallel-dnn-training/)",
+  which appeared at ICML 2021 (`pipedream_2bw` branch).
+
+This work was one as part of Microsoft Research's
+[Project Fiddle](https://aka.ms/msr-fiddle). This source code is available
+under the [MIT License](LICENSE.txt).
 
 ## Directory Structure
 
